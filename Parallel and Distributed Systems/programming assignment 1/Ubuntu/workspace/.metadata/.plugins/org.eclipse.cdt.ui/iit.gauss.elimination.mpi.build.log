@@ -1,0 +1,46 @@
+18:16:23 **** Build of configuration Debug for project iit.gauss.elimination.mpi ****
+make all 
+Building file: ../src/main.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp: In function ‘void parameters(int, char**)’:
+../src/main.cpp:57:7: warning: unused variable ‘uid’ [-Wunused-variable]
+  char uid[32]; /*User name */
+       ^
+../src/main.cpp: In function ‘int main(int, char**)’:
+../src/main.cpp:147:12: warning: unused variable ‘tagForSendMainData’ [-Wunused-variable]
+  const int tagForSendMainData = 13;
+            ^
+../src/main.cpp:151:10: warning: variable ‘etstart2’ set but not used [-Wunused-but-set-variable]
+  clock_t etstart2, etstop2; /* Elapsed times using times() */
+          ^
+../src/main.cpp:151:20: warning: variable ‘etstop2’ set but not used [-Wunused-but-set-variable]
+  clock_t etstart2, etstop2; /* Elapsed times using times() */
+                    ^
+../src/main.cpp: In function ‘d forwardElemination(int, int)’:
+../src/main.cpp:241:12: warning: unused variable ‘row’ [-Wunused-variable]
+  int norm, row, col, n = 3; /* Normalization row, and zeroing
+            ^
+../src/main.cpp:241:17: warning: unused variable ‘col’ [-Wunused-variable]
+  int norm, row, col, n = 3; /* Normalization row, and zeroing
+                 ^
+../src/main.cpp:241:22: warning: unused variable ‘n’ [-Wunused-variable]
+  int norm, row, col, n = 3; /* Normalization row, and zeroing
+                      ^
+../src/main.cpp:244:6: warning: unused variable ‘root’ [-Wunused-variable]
+  int root = 0;
+      ^
+../src/main.cpp: In function ‘void backwardSubstitution()’:
+../src/main.cpp:270:6: warning: unused variable ‘norm’ [-Wunused-variable]
+  int norm, row, col;
+      ^
+Finished building: ../src/main.cpp
+ 
+Building target: iit.gauss.elimination.mpi
+Invoking: GCC C++ Linker
+mpicc  -o "iit.gauss.elimination.mpi"  ./src/main.o   
+Finished building target: iit.gauss.elimination.mpi
+ 
+
+18:16:24 Build Finished (took 689ms)
+

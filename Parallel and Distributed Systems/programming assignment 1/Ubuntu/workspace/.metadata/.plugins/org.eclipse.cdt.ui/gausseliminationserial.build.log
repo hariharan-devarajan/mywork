@@ -1,0 +1,26 @@
+13:00:18 **** Build of configuration Debug for project gausseliminationserial ****
+make all 
+Building file: ../src/serial.cpp
+Invoking: GCC C++ Compiler
+mpic++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/serial.d" -MT"src/serial.d" -o "src/serial.o" "../src/serial.cpp"
+../src/serial.cpp: In function ‘void parameters(int, char**)’:
+../src/serial.cpp:46:7: warning: unused variable ‘uid’ [-Wunused-variable]
+  char uid[32]; /*User name */
+       ^
+../src/serial.cpp: In function ‘int main(int, char**)’:
+../src/serial.cpp:130:10: warning: variable ‘etstart2’ set but not used [-Wunused-but-set-variable]
+  clock_t etstart2, etstop2; /* Elapsed times using times() */
+          ^
+../src/serial.cpp:130:20: warning: variable ‘etstop2’ set but not used [-Wunused-but-set-variable]
+  clock_t etstart2, etstop2; /* Elapsed times using times() */
+                    ^
+Finished building: ../src/serial.cpp
+ 
+Building target: gausseliminationserial
+Invoking: GCC C++ Linker
+mpic++  -o "gausseliminationserial"  ./src/serial.o   
+Finished building target: gausseliminationserial
+ 
+
+13:00:18 Build Finished (took 411ms)
+

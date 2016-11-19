@@ -1,0 +1,16 @@
+
+Matrix dimension N = 8000.
+Random seed = 1
+
+Initializing...
+
+Starting clock.
+Computing Serially.
+Stopped clock.
+
+Elapsed time = 4169.64 ms.
+(CPU times are accurate to the nearest 0.001 ms)
+My total CPU time for parent = 0.417 ms.
+My system CPU time for parent = 0 ms.
+My total CPU time for child processes = 0 ms.
+--------------------------------------------

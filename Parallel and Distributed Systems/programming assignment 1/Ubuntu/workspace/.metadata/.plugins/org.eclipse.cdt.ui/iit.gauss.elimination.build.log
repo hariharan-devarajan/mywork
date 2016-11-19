@@ -1,0 +1,13 @@
+17:37:25 **** Incremental Build of configuration Debug for project iit.gauss.elimination ****
+make all 
+Building target: iit.gauss.elimination
+Invoking: GCC C++ Linker
+mpicc  -o "iit.gauss.elimination"  ./src/serial/serial.o  ./src/mpi/parallelMPI.o   
+/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o: In function `_start':
+(.text+0x18): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+makefile:46: recipe for target 'iit.gauss.elimination' failed
+make: *** [iit.gauss.elimination] Error 1
+
+17:37:26 Build Finished (took 185ms)
+

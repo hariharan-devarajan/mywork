@@ -1,0 +1,31 @@
+Parallel MPI
+Entered root processor
+
+Rank : 0
+
+Size : 6
+
+Initializing...
+
+N =10
+	
+Starting clock.
+
+Get Data from all other processors for merging
+
+Broadcast data to all processors
+Computing Serially.
+
+Perform Back Substitution
+
+N =10
+	Stopped clock.
+
+X = [739.09; 247.20; -101.54; 60.90; 63.85; -140.78; -79.95; 155.58; -3.54;  0.47]
+
+Elapsed time = 0.077 ms.
+(CPU times are accurate to the nearest 0.001 ms)
+My total CPU time for parent = 0 ms.
+My system CPU time for parent = 0 ms.
+My total CPU time for child processes = 0 ms.
+--------------------------------------------

@@ -1,0 +1,24 @@
+16:16:56 **** Incremental Build of configuration Debug for project hdf5 ****
+make all 
+Building file: ../src/hdf5.cpp
+Invoking: GCC C++ Compiler
+g++ -I/usr/include/hdf5/serial -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/hdf5.d" -MT"src/hdf5.d" -o "src/hdf5.o" "../src/hdf5.cpp"
+../src/hdf5.cpp: In function ‘int main()’:
+../src/hdf5.cpp:7:9: warning: variable ‘status’ set but not used [-Wunused-but-set-variable]
+  herr_t status;
+         ^
+Finished building: ../src/hdf5.cpp
+ 
+Building target: hdf5
+Invoking: GCC C++ Linker
+g++ -L/usr/include/hdf5/serial -o "hdf5"  ./src/hdf5.o   
+./src/hdf5.o: In function `main':
+/home/hariharan/iit/pdp/programming assignment 1/Ubuntu/workspace/hdf5/Debug/../src/hdf5.cpp:10: undefined reference to `H5check_version'
+/home/hariharan/iit/pdp/programming assignment 1/Ubuntu/workspace/hdf5/Debug/../src/hdf5.cpp:10: undefined reference to `H5Fcreate'
+/home/hariharan/iit/pdp/programming assignment 1/Ubuntu/workspace/hdf5/Debug/../src/hdf5.cpp:13: undefined reference to `H5Fclose'
+collect2: error: ld returned 1 exit status
+make: *** [hdf5] Error 1
+makefile:45: recipe for target 'hdf5' failed
+
+16:16:56 Build Finished (took 463ms)
+

@@ -1,0 +1,14 @@
+
+Initialising ...
+
+Starting clock.
+Stopped clock.
+
+X = [56.278  ; -35.293  ; -21.671  ]
+
+Elapsed time = 0.547 ms.
+(CPU times are accurate to the nearest 0.001 ms)
+My total CPU time for parent = 0 ms.
+My system CPU time for parent = 0 ms.
+My total CPU time for child processes = 0 ms.
+--------------------------------------------

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;iit.gauss.elimination.serial/src/serial.cpp&apos; to &apos;main.cpp&apos;" description="Rename resource &apos;serial.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/serial.cpp" name="main.cpp" stamp="1474591751557" updateReferences="true"/>
+</session>

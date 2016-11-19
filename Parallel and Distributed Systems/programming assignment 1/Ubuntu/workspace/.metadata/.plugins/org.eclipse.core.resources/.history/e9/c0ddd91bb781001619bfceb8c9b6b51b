@@ -1,0 +1,276 @@
+/*                Assignment #1 (ECE730-C97-20).                      */
+/*          Original code by Steve Hoover, Jan '96.                   */
+
+/*               Gaussian elimination without pivoting.               */
+/*             Implemented for the POSIX thread standard.             */
+
+/*
+ * Threads code by:
+ *	Pramod G. Joisha, ECE Department,
+ *	Northwestern University, April, 1997.
+ */
+
+
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+#include <sys/types.h>
+#include <sys/times.h>
+#include <sys/time.h>
+#include <limits.h>
+#include <mpi.h>
+#include <unistd.h>
+
+#define _REENTRANT
+#define min(a, b)            ((a) < (b)) ? (a) : (b)
+
+/*                      Program Parameters.                           */
+
+/*         Maximum value of N (dimension size of matrix).             */
+#define MAXN                2000
+/*               Maximum matrix size for printing.                    */
+#define MAXPRINTSIZE          3
+
+/*                          Matrix size.                              */
+int N;
+
+/*                      Matrices and vector.                          */
+/*         We are given A * X = B; we have to solve for X.            */
+volatile float A[MAXN][MAXN], B[MAXN], X[MAXN];
+
+/*             For storing the identity of each thread.               */
+MPI_Win Mutex,CountLock;
+int numOfProcessors;
+int Norm,
+CurrentRow, Count;
+
+
+
+/*       This function runs concurrently in <NumThreads> threads.     */
+void gaussPT();
+
+/*          This function determines the chunk size of rows.          */
+int find_next_row_chunk(int *, int);
+
+/*        This function implements a barrier synchronisation.         */
+void barrier(int *);
+
+/*        This function awaits the termination of all threads.        */
+void wait_for_Processes(void);
+
+/*          Returns a seed for <srand()> based on the time.           */
+unsigned int time_seed(void) {
+	struct timeval t;
+	struct timezone tzdummy;
+
+	gettimeofday(&t, &tzdummy);
+	return (unsigned int) (t.tv_usec);
+}
+
+/* Set the program parameters from the command-line arguments */
+void parameters(int argc, char **argv) {
+	int seed = 0; /* Random seed */
+	char uid[32]; /*User name */
+
+	/* Read command-line arguments */
+	srand(time_seed()); /* Randomize */
+	bool isSet = false;
+
+	if (argc >= 2) {
+		N = atoi(argv[1]);
+		if (N < 1 || N > MAXN) {
+			printf("N = %i is out of range.\n", N);
+			exit(0);
+		}
+		isSet = true;
+	}
+	if (argc >= 3) {
+		seed = atoi(argv[2]);
+		srand(seed);
+		isSet = true;
+
+	} else {
+		isSet = false;
+	}
+	if (argc >= 4) {
+		freopen(argv[3], "w", stdout);
+
+	} else {
+		isSet = false;
+	}
+	if (!isSet) {
+		printf(
+				"Usage: %s <matrix_dimension> [random seed] [log file] [Number of threads]<>\n",
+				argv[0]);
+		exit(0);
+	}
+
+	/* Print parameters */
+	printf("\nMatrix dimension N = %i.\n", N);
+	printf("Random seed = %i\n", seed);
+}
+
+void initialise_inputs(void) {
+	int row, col;
+
+	printf("\nInitialising ...\n");
+	for (col = 0; col < N; col++) {
+		/*
+		 * The addition of 1 is to ensure non-zero entries in the
+		 * coefficient matrix A.
+		 */
+		for (row = 0; row < N; row++)
+			A[row][col] = (float) rand() / RAND_MAX + 1;
+		B[col] = (float) rand() / RAND_MAX + 1;
+		X[col] = 0.0;
+	}
+}
+
+void print_inputs(void) {
+	int row, col;
+
+	if (N < MAXPRINTSIZE) {
+		printf("\nA =\n\t");
+		for (row = 0; row < N; row++) {
+			for (col = 0; col < N; col++)
+				printf("%6.3f  %s", A[row][col],
+						(col < N - 1) ? ", " : ";\n\t");
+		}
+		printf("\nB = [");
+		for (col = 0; col < N; col++)
+			printf("%6.3f  %s", B[col], (col < N - 1) ? "; " : "]\n");
+	}
+}
+
+void print_X(void) {
+	int row;
+	printf("\nX = [");
+	for (row = 0; row < N; row++)
+		printf("%6.3f  %s", X[row], (row < N - 1) ? "; " : "]\n");
+}
+
+int main(int argc, char **argv) {
+	/* Timing variables */
+	struct timeval etstart, etstop; /* Elapsed times using gettimeofday() */
+		struct timezone tzdummy;
+		clock_t etstart2, etstop2; /* Elapsed times using times() */
+		unsigned long long usecstart, usecstop;
+		struct tms cputstart, cputstop; /* CPU times for my processes */
+
+	int row, col;
+
+	parameters(argc, argv);
+	initialise_inputs();
+	print_inputs();
+	MPI_Init(&argc, &argv);
+
+	MPI_Comm_rank(MPI_COMM_WORLD, &Norm);
+
+	MPI_Comm_size(MPI_COMM_WORLD, &numOfProcessors);
+	CurrentRow = Norm + 1;
+	Count = numOfProcessors - 1;
+
+	/* Start Clock */
+	printf("\nStarting clock.\n");
+	gettimeofday(&etstart, &tzdummy);
+	etstart2 = times(&cputstart);
+
+	gaussPT();
+
+	wait_for_Processes();
+
+	/*
+	 * Diagonal elements are not normalised to 1.
+	 * This is treated in back substitution.
+	 */
+
+	/*                         Back substitution.                         */
+	for (row = N - 1; row >= 0; row--) {
+		X[row] = B[row];
+		for (col = N - 1; col > row; col--)
+			X[row] -= A[row][col] * X[col];
+		X[row] /= A[row][row];
+	}
+
+	/* Stop Clock */
+			gettimeofday(&etstop, &tzdummy);
+			etstop2 = times(&cputstop);
+
+			printf("Stopped clock.\n");
+			usecstart = (unsigned long long) etstart.tv_sec * 1000000
+					+ etstart.tv_usec;
+			usecstop = (unsigned long long) etstop.tv_sec * 1000000
+					+ etstop.tv_usec;
+
+			/* Display output */
+			print_X();
+			/* Display timing results */
+
+			printf("\nElapsed time = %g ms.\n",
+					(float) (usecstop - usecstart) / (float) 1000);
+
+
+			/* Contrary to the man pages, this appears not to include the parent */
+			printf("--------------------------------------------\n");
+	return 0;
+
+}
+
+void gaussPT() {
+	/*  <myRow> denotes the first row of the chunk assigned to a thread.  */
+	int myRow = 0, row, col;
+
+	/*                     Normalisation row.                             */
+	int myNorm = 0;
+
+	float multiplier;
+	int chunkSize;
+
+	/*                Actual Gaussian elimination begins here.            */
+
+	while (myNorm < N - 1) {
+		/*        Ascertain the row chunk to be assigned to this thread.      */
+		while (chunkSize = find_next_row_chunk(&myRow, myNorm)) {
+
+			/*      We perform the eliminations across these rows concurrently.   */
+			for (row = myRow; row < (min(N, myRow + chunkSize)); row++) {
+				multiplier = A[row][myNorm] / A[myNorm][myNorm];
+				for (col = myNorm; col < N; col++)
+					A[row][col] -= A[myNorm][col] * multiplier;
+				B[row] -= B[myNorm] * multiplier;
+			}
+		}
+
+		/*           We wait until all processes are done with this stage.      */
+		/*          We then proceed to handle the next normalisation row.     */
+		barrier(&myNorm);
+	}
+}
+
+void barrier(int *myNorm) {
+
+	/*         We implement synchronisation using condition variables.    */
+	MPI_Barrier(MPI_COMM_WORLD);
+}
+
+int find_next_row_chunk(int *myRow, int myNorm) {
+	int chunkSize;
+
+	MMPI_Win_createNULL,0,1,
+            MPI_INFO_NULL,MPI_COMM_WORLD,&Mutex);
+	MPI_Win_lock(MPI_LOCK_SHARED,1,0,Mutex);
+	*myRow = CurrentRow;
+
+	/*    For guided-self scheduling, we determine the chunk size here.   */
+	chunkSize = (*myRow < N) ? (N - myNorm - 1) / (2 * numOfProcessors) + 1 : 0;
+	CurrentRow += chunkSize;
+
+	MPI_Win_unlock(1,Mutex);
+
+	return chunkSize;
+}
+void wait_for_Processes(void) {
+	MPI_Barrier(MPI_COMM_WORLD);
+}

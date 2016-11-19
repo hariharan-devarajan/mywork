@@ -1,0 +1,7 @@
+18:14:06 **** Clean-only build of configuration Debug for project iit.gauss.elimination.serial ****
+make clean 
+rm -rf  ./src/main.o  ./src/main.d  iit.gauss.elimination.serial
+ 
+
+18:14:06 Build Finished (took 93ms)
+

@@ -1,0 +1,16 @@
+
+Matrix dimension N = 8000.
+Random seed = 1
+
+Initializing...
+
+Starting clock.
+Computing Parallel via CUDA.
+Stopped clock.
+
+Elapsed time = 1099.9 ms.
+(CPU times are accurate to the nearest 0.001 ms)
+My total CPU time for parent = 0.11 ms.
+My system CPU time for parent = 0.027 ms.
+My total CPU time for child processes = 0 ms.
+--------------------------------------------

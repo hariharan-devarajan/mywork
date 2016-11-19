@@ -1,0 +1,33 @@
+13:00:17 **** Build of configuration Debug for project gausseliminationpthread ****
+make all 
+Building file: ../src/pthread.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/pthread.d" -MT"src/pthread.d" -o "src/pthread.o" "../src/pthread.cpp"
+../src/pthread.cpp: In function ‘void parameters(int, char**)’:
+../src/pthread.cpp:71:7: warning: unused variable ‘uid’ [-Wunused-variable]
+  char uid[32]; /*User name */
+       ^
+../src/pthread.cpp: In function ‘int main(int, char**)’:
+../src/pthread.cpp:158:10: warning: variable ‘etstart2’ set but not used [-Wunused-but-set-variable]
+  clock_t etstart2, etstop2; /* Elapsed times using times() */
+          ^
+../src/pthread.cpp:158:20: warning: variable ‘etstop2’ set but not used [-Wunused-but-set-variable]
+  clock_t etstart2, etstop2; /* Elapsed times using times() */
+                    ^
+../src/pthread.cpp: In function ‘void* gaussPT(void*)’:
+../src/pthread.cpp:240:56: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+   while (chunkSize = find_next_row_chunk(&myRow, myNorm)) {
+                                                        ^
+../src/pthread.cpp:255:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+Finished building: ../src/pthread.cpp
+ 
+Building target: gausseliminationpthread
+Invoking: GCC C++ Linker
+g++ -pthread  -o "gausseliminationpthread"  ./src/pthread.o   
+Finished building target: gausseliminationpthread
+ 
+
+13:00:18 Build Finished (took 546ms)
+

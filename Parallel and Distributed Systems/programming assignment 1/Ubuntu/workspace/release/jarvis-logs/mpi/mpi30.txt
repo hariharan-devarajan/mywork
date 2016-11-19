@@ -1,0 +1,30 @@
+
+Matrix dimension N = 30.
+Random seed = 3
+Parallel MPI
+Broadcast data to all processors
+Computing Serially.
+ing...
+
+N =30
+	
+Starting clock.
+
+Get Data from all other processors for merging
+
+Broadcast data to all processors
+Computing Serially.
+
+Perform Back Substitution
+
+N =30
+	Stopped clock.
+
+X = [27018.61; 6738.96; -72843.01; -3502.88; 21359.59; -124.81; -18748.39; 9464.25; -14238.71; 2119.57; 8679.56; -2366.12; -178.06; -4111.22; 358.83; -14.96; -211.05; 101.30; 93.56; -197.45; -57.59; 58.33;  7.37; -1.14;  1.01; -1.06;  1.80; -0.79; -0.45;  1.83]
+
+Elapsed time = 2.337 ms.
+(CPU times are accurate to the nearest 0.001 ms)
+My total CPU time for parent = 0 ms.
+My system CPU time for parent = 0 ms.
+My total CPU time for child processes = 0 ms.
+--------------------------------------------

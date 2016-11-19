@@ -1,0 +1,14 @@
+   ============================================
+   =      NAS PARALLEL BENCHMARKS 3.3         =
+   =      OpenMP Versions                     =
+   =      C                                   =
+   ============================================
+
+cd CG; make CLASS=C
+make[1]: Entering directory '/home/admin2/iit/pdp/programming assignement 2/NPB3.3-OMP-C/CG'
+make[2]: Entering directory '/home/admin2/iit/pdp/programming assignement 2/NPB3.3-OMP-C/sys'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/admin2/iit/pdp/programming assignement 2/NPB3.3-OMP-C/sys'
+../sys/setparams cg C
+gcc -O3 -fopenmp -mcmodel=medium -o ../bin/cg.C.x cg.o ../common/print_results.o ../common/randdp.o ../common/c_timers.o ../common/wtime.o -lm
+make[1]: Leaving directory '/home/admin2/iit/pdp/programming assignement 2/NPB3.3-OMP-C/CG'

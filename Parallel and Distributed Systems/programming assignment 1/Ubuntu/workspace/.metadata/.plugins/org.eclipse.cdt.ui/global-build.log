@@ -1,0 +1,68 @@
+19:36:35 **** Build of configuration Debug for project test ****
+make all 
+Building file: ../src/test.cpp
+Invoking: GCC C++ Compiler
+h5c++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/test.d" -MT"src/test.d" -o "src/test.o" "../src/test.cpp"
+../src/test.cpp:27:21: error: ‘H5’ is not a namespace-name
+     using namespace H5;
+                     ^
+../src/test.cpp:27:23: error: expected namespace-name before ‘;’ token
+     using namespace H5;
+                       ^
+../src/test.cpp:29:7: error: ‘H5std_string’ does not name a type
+ const H5std_string  FILE_NAME( "SDS.h5" );
+       ^
+../src/test.cpp:30:7: error: ‘H5std_string’ does not name a type
+ const H5std_string  DATASET_NAME( "IntArray" );
+       ^
+../src/test.cpp: In function ‘int main()’:
+../src/test.cpp:60:7: error: ‘Exception’ has not been declared
+       Exception::dontPrint();
+       ^
+../src/test.cpp:66:7: error: ‘H5File’ was not declared in this scope
+       H5File file( FILE_NAME, H5F_ACC_TRUNC );
+       ^
+../src/test.cpp:74:7: error: ‘DataSpace’ was not declared in this scope
+       DataSpace dataspace( RANK, dimsf );
+       ^
+../src/test.cpp:79:7: error: ‘IntType’ was not declared in this scope
+       IntType datatype( PredType::NATIVE_INT );
+       ^
+../src/test.cpp:80:7: error: ‘datatype’ was not declared in this scope
+       datatype.setOrder( H5T_ORDER_LE );
+       ^
+src/subdir.mk:21: recipe for target 'src/test.o' failed
+../src/test.cpp:85:7: error: ‘DataSet’ was not declared in this scope
+       DataSet dataset = file.createDataSet( DATASET_NAME, datatype, dataspace );
+       ^
+../src/test.cpp:90:7: error: ‘dataset’ was not declared in this scope
+       dataset.write( data, PredType::NATIVE_INT );
+       ^
+../src/test.cpp:90:28: error: ‘PredType’ has not been declared
+       dataset.write( data, PredType::NATIVE_INT );
+                            ^
+../src/test.cpp:93:11: error: ‘FileIException’ does not name a type
+    catch( FileIException error )
+           ^
+../src/test.cpp:95:7: error: ‘error’ was not declared in this scope
+       error.printError();
+       ^
+../src/test.cpp:99:11: error: ‘DataSetIException’ does not name a type
+    catch( DataSetIException error )
+           ^
+../src/test.cpp:101:7: error: ‘error’ was not declared in this scope
+       error.printError();
+       ^
+../src/test.cpp:105:11: error: ‘DataSpaceIException’ does not name a type
+    catch( DataSpaceIException error )
+           ^
+../src/test.cpp:107:7: error: ‘error’ was not declared in this scope
+       error.printError();
+       ^
+../src/test.cpp:111:11: error: ‘DataTypeIException’ does not name a type
+    catch( DataTypeIException error )
+           ^
+../src/test.cpp:113:7: error: ‘error’ was not declared in this scope
+       error.printError();
+       ^
+make: *** [src/test.o] Error 1

@@ -1,0 +1,25 @@
+
+Matrix dimension N = 3.
+Random seed = 3
+
+Initializing...
+
+A =
+	36790.61, 18680.46, 58681.05;
+	14744.51, 9488.37, 15126.02;
+	25761.66, 36933.11, 262.90;
+	
+B = [29093.95; 56667.58; 30184.63]
+
+Starting clock.
+Computing Serially.
+Stopped clock.
+
+X = [22.51; -14.82; -8.90]
+
+Elapsed time = 0.006 ms.
+(CPU times are accurate to the nearest 0.001 ms)
+My total CPU time for parent = 0 ms.
+My system CPU time for parent = 0 ms.
+My total CPU time for child processes = 0 ms.
+--------------------------------------------

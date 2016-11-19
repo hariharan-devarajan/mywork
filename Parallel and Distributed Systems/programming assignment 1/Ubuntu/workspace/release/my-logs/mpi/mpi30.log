@@ -1,0 +1,27 @@
+Parallel MPI
+Broadcast data to all processors
+Computing Serially.
+ing...
+
+N =30
+	
+Starting clock.
+
+Get Data from all other processors for merging
+
+Broadcast data to all processors
+Computing Serially.
+
+Perform Back Substitution
+
+N =30
+	Stopped clock.
+
+X = [7742875.50; -3523531.00; 3852524.50; 174638.75; -4554639.00; 5933598.00; -4146074.75; -2133093.00; 236177.73; 73076.39; 2500305.75; -183343.98; -16580.04; -823697.12; -56234.92; -141333.52; 141149.23; 18239.91; -3186.30; -309.53; 280.27; -44.15; 173.36; -48.03; 44.59; 19.36;  7.71; 19.54; -19.55;  0.68]
+
+Elapsed time = 15.503 ms.
+(CPU times are accurate to the nearest 0.001 ms)
+My total CPU time for parent = 0.002 ms.
+My system CPU time for parent = 0 ms.
+My total CPU time for child processes = 0 ms.
+--------------------------------------------
